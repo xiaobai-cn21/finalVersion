@@ -12,11 +12,14 @@ Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog),
     m_targetWidget(nullptr),
-    m_tcpSocket(nullptr)
+     m_tcpSocket(nullptr)
+
 // m_tcpSocket(new MyTcpSocket(this))
 {
     ui->setupUi(this);
     this->resize(800, 600);
+
+    //MyTcpSocket *m_tcpSocket = new MyTcpSocket;
     /*
     // 假设按钮名为togglePasswordBtn，密码框为passwordLineEdit
     connect(ui->togglePasswordBtn, &QPushButton::clicked, this, [=]() {
@@ -70,7 +73,7 @@ void Dialog::onLoginClicked()
     }
 
     // 连接服务器 (假设服务器IP和端口是固定的，也可以从界面输入)
-    QString serverIp = "192.168.245.129"; // 实际使用时修改为你的服务器IP
+    QString serverIp = "192.168.90.91"; // 实际使用时修改为你的服务器IP
     QString serverPort = "8080";    // 实际使用时修改为你的服务器端口
     //m_tcpSocket->sendLoginData(username, password,role);
     ui->label_status->setText("正在连接服务器...");
@@ -102,6 +105,25 @@ void Dialog::onLoginFailed(const QString &errorMsg)
     ui->label_status->setText(errorMsg);
     // 清空密码框
     ui->password->clear();
+    if (m_tcpSocket) {
+        // 将MyTcpSocket指针转换为基类QTcpSocket指针
+        QTcpSocket* baseSocket = dynamic_cast<QTcpSocket*>(m_tcpSocket);
+
+        // 断开连接
+        m_tcpSocket->disconnectFromHost();
+
+        // 通过基类指针调用state()和waitForDisconnected()
+        if (baseSocket && baseSocket->state() != QAbstractSocket::UnconnectedState) {
+            baseSocket->waitForDisconnected(); // 等待连接断开
+        }
+        /*
+        // 销毁socket实例
+        delete m_tcpSocket;
+        m_tcpSocket = nullptr;
+        */
+    }
+
+
 }
 
 void Dialog::onRegisterClicked()
@@ -125,7 +147,7 @@ void Dialog::onRegisterClicked()
    // m_tcpSocket->sendRegisterData(username, password, email, role);
 
     // 连接服务器并发送注册数据
-    QString serverIp = "39.106.12.91";
+    QString serverIp = "192.168.90.91";
     QString serverPort = "8080";
     ui->label_status_2->setText("正在连接服务器...");
     if (m_tcpSocket->connectToServer(serverIp, serverPort, QIODevice::ReadWrite)) {
@@ -212,6 +234,7 @@ void Dialog::setTcpSocket(MyTcpSocket *socket)
     connect(m_tcpSocket, &MyTcpSocket::registerFailed,
             this, &Dialog::onRegisterFailed);
 }
+
 void Dialog::onBackLoginClicked()
 {
     // 切换到登录界面
