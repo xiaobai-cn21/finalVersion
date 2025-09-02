@@ -1,0 +1,32 @@
+..\kehu\widget.cpp:Widget::39>>>-------------------------Application Start---------------------------
+..\kehu\widget.cpp:Widget::40>>>main UI thread id: 0x00002340
+..\kehu\sendimg.cpp:run::17>>>start sending picture thread: 0x00005AB4
+..\kehu\sendtext.cpp:run::35>>>start sending text thread: 0x00005140
+..\kehu\recvsolve.cpp:run::21>>>start solving data thread: 0x00005144
+..\kehu\AudioOutput.cpp:run::111>>>start playing audio thread 0x0000506C
+..\kehu\recvsolve.cpp:run::28>>>stop solving data thread: 0x00005144
+..\kehu\sendimg.cpp:run::33>>>stop sending picture thread: 0x00005AB4
+..\kehu\sendtext.cpp:run::48>>>stop sending text thread: 0x00005140
+..\kehu\widget.cpp:Widget::39>>>-------------------------Application Start---------------------------
+..\kehu\widget.cpp:Widget::40>>>main UI thread id: 0x000008D8
+..\kehu\sendimg.cpp:run::17>>>start sending picture thread: 0x000056A0
+..\kehu\sendtext.cpp:run::35>>>start sending text thread: 0x000054C8
+..\kehu\recvsolve.cpp:run::21>>>start solving data thread: 0x00004E58
+..\kehu\AudioOutput.cpp:run::111>>>start playing audio thread 0x0000280C
+..\kehu\widget.cpp:Widget::39>>>-------------------------Application Start---------------------------
+..\kehu\widget.cpp:Widget::40>>>main UI thread id: 0x000008D8
+..\kehu\sendimg.cpp:run::17>>>start sending picture thread: 0x00001A60
+..\kehu\sendtext.cpp:run::35>>>start sending text thread: 0x000044AC
+..\kehu\recvsolve.cpp:run::21>>>start solving data thread: 0x00002630
+..\kehu\AudioOutput.cpp:run::111>>>start playing audio thread 0x0000465C
+..\kehu\widget.cpp:Widget::39>>>-------------------------Application Start---------------------------
+..\kehu\widget.cpp:Widget::40>>>main UI thread id: 0x000008D8
+..\kehu\sendimg.cpp:run::17>>>start sending picture thread: 0x000036EC
+..\kehu\sendtext.cpp:run::35>>>start sending text thread: 0x00005A80
+..\kehu\recvsolve.cpp:run::21>>>start solving data thread: 0x000054DC
+..\kehu\AudioOutput.cpp:run::111>>>start playing audio thread 0x000034FC
+..\kehu\widget.cpp:on_connServer_clicked::412>>>failed to connenct 192.168.1.126:8888
+..\kehu\recvsolve.cpp:run::28>>>stop solving data thread: 0x00004E58
+..\kehu\sendimg.cpp:run::33>>>stop sending picture thread: 0x000056A0
+..\kehu\sendtext.cpp:run::48>>>stop sending text thread: 0x000054C8
+..\kehu\AudioOutput.cpp:run::119>>>stop playing audio thread 0x0000280C
