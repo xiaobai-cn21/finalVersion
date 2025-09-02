@@ -70,9 +70,9 @@ void Dialog::onLoginClicked()
     }
 
     // 连接服务器 (假设服务器IP和端口是固定的，也可以从界面输入)
-    QString serverIp = "39.106.12.91"; // 实际使用时修改为你的服务器IP
+    QString serverIp = "192.168.245.129"; // 实际使用时修改为你的服务器IP
     QString serverPort = "8080";    // 实际使用时修改为你的服务器端口
-
+    //m_tcpSocket->sendLoginData(username, password,role);
     ui->label_status->setText("正在连接服务器...");
 
     // 连接服务器并发送登录数据
@@ -83,6 +83,7 @@ void Dialog::onLoginClicked()
     } else {
         ui->label_status->setText("连接服务器失败: " + m_tcpSocket->errorString());
     }
+
 }
 // 获取选中的角色（注册/登录页通用）
 QString Dialog::getSelectedRole() {
@@ -121,18 +122,19 @@ void Dialog::onRegisterClicked()
         ui->label_status_2->setText("请完善注册信息并选择角色");
         return;
     }
+   // m_tcpSocket->sendRegisterData(username, password, email, role);
 
     // 连接服务器并发送注册数据
-    QString serverIp = "192.168.90.91";
+    QString serverIp = "39.106.12.91";
     QString serverPort = "8080";
     ui->label_status_2->setText("正在连接服务器...");
-
     if (m_tcpSocket->connectToServer(serverIp, serverPort, QIODevice::ReadWrite)) {
         ui->label_status_2->setText("正在注册...");
         m_tcpSocket->sendRegisterData(username, password, email, role);
     } else {
         ui->label_status_2->setText("连接服务器失败: " + m_tcpSocket->errorString());
     }
+
 }
 /*
 // 处理注册响应
@@ -155,6 +157,24 @@ void Dialog::onLoginSuccess(const QString &role)
     qDebug() << "Login success! Role received:" << role; // 调试输出
 
     ui->label_status->setText("登录成功，正在进入系统...");
+    // 1. 断开TCP连接并销毁socket实例
+    if (m_tcpSocket) {
+        // 将MyTcpSocket指针转换为基类QTcpSocket指针
+        QTcpSocket* baseSocket = dynamic_cast<QTcpSocket*>(m_tcpSocket);
+
+        // 断开连接
+        m_tcpSocket->disconnectFromHost();
+
+        // 通过基类指针调用state()和waitForDisconnected()
+        if (baseSocket && baseSocket->state() != QAbstractSocket::UnconnectedState) {
+            baseSocket->waitForDisconnected(); // 等待连接断开
+        }
+
+        // 销毁socket实例
+        delete m_tcpSocket;
+        m_tcpSocket = nullptr;
+    }
+
     //传递role参数
     if(role =="admin"){
         Widget *mainWidget = new Widget();
@@ -164,6 +184,7 @@ void Dialog::onLoginSuccess(const QString &role)
     }
 
     Widget *mainWidget = new Widget();
+   // mainWidget->setTcpSocket(m_tcpSocket);
     mainWidget->setUserRole(role); // 传递角色信息
     mainWidget->show();
     this->close();
